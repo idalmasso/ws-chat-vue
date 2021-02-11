@@ -1,5 +1,5 @@
 <template>
-  <div class="list-messages">
+  <div class="list-messages" ref="messages">
     <message-card v-for="mex in messages" :key="mex.id">
       <template v-slot:header>{{ mex.user }}</template> {{ mex.message }}
     </message-card>
@@ -14,4 +14,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.list-messages {
+  margin-bottom: 10%;
+  padding-bottom: 10%;
+}
+</style>

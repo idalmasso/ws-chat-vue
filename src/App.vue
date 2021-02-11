@@ -42,16 +42,22 @@ export default {
         this.username = "";
       }
     },
+
     login(username) {
       this.username = username;
       this.connection = new WebSocket(
-        "ws://localhost:2000/chat?id=" + username
+        "ws://192.168.1.108:2000/chat?id=" + username
       );
 
       this.connection.onmessage = (event) => {
         console.log("Message received");
         const message = JSON.parse(event.data);
         this.messages.push(message);
+
+        window.scrollTo(
+          0,
+          document.body.scrollHeight || document.documentElement.scrollHeight
+        );
       };
       this.connection.onerror = function(event) {
         console.log("Error");
@@ -67,6 +73,7 @@ export default {
         console.log(event);
         console.log("Connection closed");
         this.loggedIn = false;
+        this.messages = [];
         this.username = "";
       };
     },
